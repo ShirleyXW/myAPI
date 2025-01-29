@@ -11,7 +11,7 @@ exports.handler = async (event, context) => {
   }
 
   const { queryStringParameters } = event;
-  if (!queryStringParameters && !queryStringParameters.name){
+  if (!queryStringParameters || !queryStringParameters.name){
     return {
       statusCode: 400,
       headers: {
