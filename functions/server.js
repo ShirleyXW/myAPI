@@ -8,6 +8,6 @@ exports.handler = async (event, context) => {
       headers: {
         'Content-Type': 'text/html', 
       },
-      body: `<h1 style="color:blue">Hello ${message}</h1>`,
+      body: `<h1 style="color:blue">${message}</h1>`,
     };
   };
