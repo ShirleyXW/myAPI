@@ -4,7 +4,7 @@ require('dotenv').config();
 
 const uri = process.env.MONGODB_URI;
 
-exports.writeFile = async (event, context) => {
+exports.handler = async (event, context) => {
     const {queryStringParameters} = event;
     if (!queryStringParameters || !queryStringParameters.text) {
         return {
