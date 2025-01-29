@@ -16,3 +16,8 @@
   from = "/COMP4537/labs/3/greeting/*"
   to = "/.netlify/functions/server"
   status = 200
+
+[functions]
+  node_bundler = "esbuild"
+  [functions.timeout]
+    default = 30
