@@ -1,4 +1,4 @@
-const { MongoClient } = require('mongodb');
+const { MongoClient, ObjectId } = require('mongodb');
 
 require('dotenv').config();
 
@@ -10,8 +10,8 @@ exports.handler = async (event, context) => {
     await client.connect();
     const db = client.db('isa');
     const collection = db.collection('file');
-
-    const document = await collection.findOne({});
+    const fileId = new ObjectId('679aaabfa2388ac7451b807a'); 
+    const document = await collection.findOne({_id: fileId});
     if (document) {
       return {
         statusCode: 200,

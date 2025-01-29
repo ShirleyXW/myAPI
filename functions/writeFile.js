@@ -1,5 +1,5 @@
 
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ObjectId } = require('mongodb');
 require('dotenv').config();
 
 const uri = process.env.MONGODB_URI;
@@ -23,7 +23,8 @@ exports.handler = async (event, context) => {
         await client.connect();
         const database = client.db("isa");
         const collection = database.collection("file");
-        const file = await collection.findOne({});
+        const fileId = new ObjectId("679aaabfa2388ac7451b807a"); 
+        const file = await collection.findOne({_id:fileId});
         console.log("before updated:",file);
         console.log("text:",text);
         if (file) {
