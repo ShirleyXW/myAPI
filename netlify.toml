@@ -7,6 +7,10 @@
   to = "/.netlify/functions/writeFile"
   status = 200
 
+[[redirects]]
+  from = "/COMP4537/labs/3/readFile/file.txt"
+  to = "/.netlify/functions/readFile"
+  status = 200
 
 [[redirects]]
   from = "/COMP4537/labs/3/greeting/*"

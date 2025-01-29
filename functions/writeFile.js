@@ -6,7 +6,7 @@ const uri = process.env.MONGODB_URI;
 const client = new MongoClient(uri);
 
 exports.handler = async (event, context) => {
-    const {queryStringParameters} = event;
+    const { queryStringParameters } = event;
     if (!queryStringParameters || !queryStringParameters.text) {
         return {
             statusCode: 400,
@@ -23,12 +23,14 @@ exports.handler = async (event, context) => {
         await client.connect();
         const database = client.db("isa");
         const collection = database.collection("file");
-
         const file = await collection.findOne({});
+        console.log("before updated:",file);
+        console.log("text:",text);
         if (file) {
             await collection.updateOne(
-                { _id: document._id },
-                { $set: { text: document.text + '\n' + text } });
+                { _id: file._id },
+                { $set: { text: file.text + '\n' + text } });
+            console.log("After updated:",file);
         } else {
             await collection.insertOne({ text });
         }
