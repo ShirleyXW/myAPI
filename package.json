@@ -15,5 +15,9 @@
     "url": "https://github.com/ShirleyXW/myAPI/issues"
   },
   "homepage": "https://github.com/ShirleyXW/myAPI#readme",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "mongodb": "^6.12.0"
+  }
 }
