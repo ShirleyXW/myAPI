@@ -1,6 +1,6 @@
 const greeting = require("../modules/get-date");
 exports.handler = async (event, context) => {
-    if (event.path !== '/.netlify/functions/server'){
+    if (!event.path.startsWith('/COMP4537/labs/3/greeting/')){
       return {
         statusCode: 400,
         headers: {

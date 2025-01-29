@@ -3,6 +3,12 @@
   functions = "functions"
 
 [[redirects]]
-  from = "/*"
+  from = "/COMP4537/labs/3/writeFile/*"
+  to = "/.netlify/functions/writeFile"
+  status = 200
+
+
+[[redirects]]
+  from = "/COMP4537/labs/3/greeting/*"
   to = "/.netlify/functions/server"
   status = 200
