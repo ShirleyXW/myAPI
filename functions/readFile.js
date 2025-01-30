@@ -40,7 +40,5 @@ exports.handler = async (event, context) => {
       statusCode: 500,
       body: JSON.stringify({ error: 'Failed to read file' }),
     };
-  } finally {
-    await client.close();
   }
 };

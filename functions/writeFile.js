@@ -64,7 +64,5 @@ exports.handler = async (event, context) => {
                 message: e.message,
             }),
         };
-    } finally {
-        await client.close();
     }
 }
