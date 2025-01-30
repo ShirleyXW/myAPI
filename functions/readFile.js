@@ -8,11 +8,16 @@ let client;
 
 async function getClient() {
     if (!client) {
-        client = new MongoClient(uri);
-        await client.connect();
+        // Create a MongoClient with custom timeouts
+        client = new MongoClient(uri, {
+            connectTimeoutMS: 5000,       // 5 seconds to connect to MongoDB
+            serverSelectionTimeoutMS: 5000 // 5 seconds to select a server
+        });
+        await client.connect(); // Connect to MongoDB
     }
     return client;
 }
+
 
 exports.handler = async (event, context) => {
   try {
