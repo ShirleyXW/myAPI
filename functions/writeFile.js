@@ -1,22 +1,5 @@
 
-const { MongoClient, ObjectId } = require('mongodb');
-require('dotenv').config();
-
-const uri = process.env.MONGODB_URI;
-
-let client;
-
-async function getClient() {
-    if (!client) {
-        // Create a MongoClient with custom timeouts
-        client = new MongoClient(uri, {
-            connectTimeoutMS: 5000,       // 5 seconds to connect to MongoDB
-            serverSelectionTimeoutMS: 5000 // 5 seconds to select a server
-        });
-        await client.connect(); // Connect to MongoDB
-    }
-    return client;
-}
+const MongoDB = require('../modules/mongodb');
 
 
 exports.handler = async (event, context) => {
@@ -33,22 +16,10 @@ exports.handler = async (event, context) => {
         };
     }
     const text = queryStringParameters.text;
+    const mongodb = new MongoDB();
     try {
-        const client = await getClient();
-        const database = client.db("isa");
-        const collection = database.collection("file");
-        const fileId = new ObjectId("679aaabfa2388ac7451b807a"); 
-        const file = await collection.findOne({_id:fileId});
-        console.log("before updated:",file);
-        console.log("text:",text);
-        if (file) {
-            await collection.updateOne(
-                { _id: file._id },
-                { $set: { text: file.text + '\n' + text } });
-            console.log("After updated:",file);
-        } else {
-            await collection.insertOne({ text });
-        }
+        const file = await mongodb.findFile();
+        await mongodb.updateFile(text);
         return {
             statusCode: 200,
             headers: {

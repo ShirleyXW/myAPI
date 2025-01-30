@@ -1,31 +1,9 @@
-const { MongoClient, ObjectId } = require('mongodb');
-
-require('dotenv').config();
-
-const uri = process.env.MONGODB_URI;
-
-let client;
-
-async function getClient() {
-    if (!client) {
-        // Create a MongoClient with custom timeouts
-        client = new MongoClient(uri, {
-            connectTimeoutMS: 5000,       // 5 seconds to connect to MongoDB
-            serverSelectionTimeoutMS: 5000 // 5 seconds to select a server
-        });
-        await client.connect(); // Connect to MongoDB
-    }
-    return client;
-}
-
+const MongoDB = require('../modules/mongodb');
 
 exports.handler = async (event, context) => {
+    const mongodb = new MongoDB();
   try {
-    const client = await getClient();
-    const db = client.db('isa');
-    const collection = db.collection('file');
-    const fileId = new ObjectId('679aaabfa2388ac7451b807a'); 
-    const document = await collection.findOne({_id: fileId});
+    const document = await mongodb.findFile();
     if (document) {
       return {
         statusCode: 200,
