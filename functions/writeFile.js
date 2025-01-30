@@ -3,7 +3,17 @@ const { MongoClient, ObjectId } = require('mongodb');
 require('dotenv').config();
 
 const uri = process.env.MONGODB_URI;
-const client = new MongoClient(uri);
+
+let client;
+
+async function getClient() {
+    if (!client) {
+        client = new MongoClient(uri);
+        await client.connect();
+    }
+    return client;
+}
+
 
 exports.handler = async (event, context) => {
     const { queryStringParameters } = event;
@@ -20,7 +30,7 @@ exports.handler = async (event, context) => {
     }
     const text = queryStringParameters.text;
     try {
-        await client.connect();
+        const client = await getClient();
         const database = client.db("isa");
         const collection = database.collection("file");
         const fileId = new ObjectId("679aaabfa2388ac7451b807a"); 
