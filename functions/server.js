@@ -22,7 +22,8 @@ exports.handler = async (event, context) => {
   }
 
     const name = queryStringParameters.name || 'Anonymous';
-    const message = greeting.getDate(name);
+    const editName = name.charAt(0).toUpperCase() + name.slice(1);
+    const message = greeting.getDate(editName);
 
 
     return {
